@@ -98,11 +98,11 @@ const Transport = () => {
             <div className="mt-3 text-sm">
               <div className="flex justify-between py-1 border-b border-gray-200">
                 <span>Bus fare:</span>
-                <span className="font-medium">0.30 AZN</span>
+                <span className="font-medium">0.50 AZN</span>
               </div>
               <div className="flex justify-between py-1">
                 <span>Metro fare:</span>
-                <span className="font-medium">0.30 AZN</span>
+                <span className="font-medium">0.50 AZN</span>
               </div>
             </div>
           </div>
