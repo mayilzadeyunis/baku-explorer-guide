@@ -3,7 +3,8 @@ import React from 'react';
 import BottomNav from '@/components/Navigation/BottomNav';
 import Hero from '@/components/Hero';
 import FeatureCard from '@/components/FeatureCard';
-import { Map, Landmark, Building, Calendar, Sun, Currency } from 'lucide-react';
+import { Map, Landmark, Building, Sun, Currency } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
@@ -47,7 +48,7 @@ const Index = () => {
             title="Weather Forecast"
             description="5-day weather forecast for Baku"
             icon={<Sun size={24} color="white" />}
-            to="/"
+            to="/weather"
             color="muted"
           />
         </div>
@@ -84,29 +85,31 @@ const Index = () => {
 
       <section className="p-4 mt-4">
         <h2 className="text-xl font-bold mb-4 text-baku-dark">Today in Baku</h2>
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="p-4 bg-baku-light flex justify-between items-center">
-            <div>
-              <p className="text-sm text-baku-dark">Today's Weather</p>
-              <p className="text-xl font-bold text-baku-primary">24°C</p>
-              <p className="text-sm">Sunny, light breeze</p>
-            </div>
-            <Sun size={40} className="text-baku-primary" />
-          </div>
-          <div className="p-4">
-            <p className="font-medium mb-2">Local Currency</p>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <Currency size={20} className="text-baku-secondary mr-2" />
-                <span>1 USD = 1.70 AZN</span>
+        <Link to="/weather">
+          <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="p-4 bg-baku-light flex justify-between items-center">
+              <div>
+                <p className="text-sm text-baku-dark">Today's Weather</p>
+                <p className="text-xl font-bold text-baku-primary">24°C</p>
+                <p className="text-sm">Sunny, light breeze</p>
               </div>
-              <div className="flex items-center">
-                <Currency size={20} className="text-baku-secondary mr-2" />
-                <span>1 EUR = 1.85 AZN</span>
+              <Sun size={40} className="text-baku-primary" />
+            </div>
+            <div className="p-4">
+              <p className="font-medium mb-2">Local Currency</p>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center">
+                  <Currency size={20} className="text-baku-secondary mr-2" />
+                  <span>1 USD = 1.70 AZN</span>
+                </div>
+                <div className="flex items-center">
+                  <Currency size={20} className="text-baku-secondary mr-2" />
+                  <span>1 EUR = 1.85 AZN</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       </section>
 
       <BottomNav activeTab="home" />
