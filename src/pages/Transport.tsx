@@ -8,12 +8,38 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 
+interface BusRoute {
+  number: string;
+  name: string;
+  startPoint: string;
+  endPoint: string;
+  frequency: string;
+  stops: string[];
+  firstBus: string;
+  lastBus: string;
+  fare: string;
+}
+
+interface MetroRoute {
+  number: string;
+  name: string;
+  startPoint: string;
+  endPoint: string;
+  frequency: string;
+  stations: string[];
+  firstTrain: string;
+  lastTrain: string;
+  fare: string;
+}
+
+type RouteDetails = BusRoute | MetroRoute;
+
 const Transport = () => {
   const [transportType, setTransportType] = useState<'bus' | 'metro'>('bus');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
 
-  const busRoutes = [
+  const busRoutes: BusRoute[] = [
     { 
       number: "1", 
       name: "28 May - Bilajari", 
@@ -104,7 +130,7 @@ const Transport = () => {
     },
   ];
 
-  const metroRoutes = [
+  const metroRoutes: MetroRoute[] = [
     { 
       number: "1", 
       name: "Red Line", 
@@ -177,6 +203,14 @@ const Transport = () => {
   };
 
   const routeDetails = getSelectedRouteDetails();
+
+  const isBusRoute = (route: RouteDetails | null): route is BusRoute => {
+    return route !== null && 'stops' in route;
+  };
+
+  const isMetroRoute = (route: RouteDetails | null): route is MetroRoute => {
+    return route !== null && 'stations' in route;
+  };
 
   return (
     <div className="pb-16">
@@ -275,9 +309,9 @@ const Transport = () => {
               <div className="space-y-3">
                 <div className="flex items-center text-sm">
                   <Clock size={16} className="mr-2 text-gray-500" />
-                  <span>First {transportType}: {transportType === 'bus' ? routeDetails.firstBus : routeDetails.firstTrain}</span>
+                  <span>First {transportType}: {isBusRoute(routeDetails) ? routeDetails.firstBus : isMetroRoute(routeDetails) ? routeDetails.firstTrain : ''}</span>
                   <span className="mx-2">•</span>
-                  <span>Last {transportType}: {transportType === 'bus' ? routeDetails.lastBus : routeDetails.lastTrain}</span>
+                  <span>Last {transportType}: {isBusRoute(routeDetails) ? routeDetails.lastBus : isMetroRoute(routeDetails) ? routeDetails.lastTrain : ''}</span>
                 </div>
                 
                 <div className="flex items-center text-sm">
@@ -291,7 +325,7 @@ const Transport = () => {
                   <p className="text-sm font-medium mb-2">Stops:</p>
                   <div className="relative pl-6">
                     <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gray-300"></div>
-                    {(transportType === 'bus' ? routeDetails.stops : routeDetails.stations).map((stop, index, array) => (
+                    {(isBusRoute(routeDetails) ? routeDetails.stops : isMetroRoute(routeDetails) ? routeDetails.stations : []).map((stop, index, array) => (
                       <div key={index} className="relative mb-3 last:mb-0">
                         <div className={`absolute left-[-14px] top-1 w-3 h-3 rounded-full ${index === 0 || index === array.length - 1 ? 'bg-baku-primary' : 'bg-gray-300'}`}></div>
                         <div className="text-sm">

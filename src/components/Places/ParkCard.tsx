@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Clock, MapPin, Park } from 'lucide-react';
+import { Clock, MapPin, TreePine } from 'lucide-react';
 
 interface ParkCardProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -49,7 +49,7 @@ const ParkCard: React.FC<ParkCardProps> = ({
         <div className="flex items-start justify-between">
           <h3 className="font-medium text-lg">{name}</h3>
           <div className="flex items-center text-green-600">
-            <Park size={18} />
+            <TreePine size={18} />
           </div>
         </div>
         
