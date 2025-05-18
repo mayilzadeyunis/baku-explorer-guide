@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import FeatureCard from '@/components/FeatureCard';
 import { Map, Landmark, Building, Sun, Currency } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -87,10 +88,7 @@ const Index = () => {
 
       <section className="p-4 mt-4">
         <h2 className="text-xl font-bold mb-4 text-baku-dark">Today in Baku</h2>
-        <div 
-          className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-          onClick={() => navigate('/weather')}
-        >
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
           <div className="p-4 bg-baku-light flex justify-between items-center">
             <div>
               <p className="text-sm text-baku-dark">Today's Weather</p>
@@ -110,6 +108,16 @@ const Index = () => {
                 <Currency size={20} className="text-baku-secondary mr-2" />
                 <span>1 EUR = 1.85 AZN</span>
               </div>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <Button
+                variant="secondary"
+                className="w-full bg-baku-secondary text-white hover:bg-baku-secondary/90"
+                onClick={() => navigate('/weather')}
+              >
+                <Sun className="mr-1" size={18} />
+                Weather Forecast
+              </Button>
             </div>
           </div>
         </div>
