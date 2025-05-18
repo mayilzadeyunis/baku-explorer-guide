@@ -98,7 +98,7 @@ const Places = () => {
     {
       name: "Baku Boulevard",
       location: "Baku Bay",
-      image: "https://images.unsplash.com/photo-1500673922987-e212871fec22",
+      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
       description: "The Baku Boulevard is a promenade that runs parallel to Baku's seafront. The park is 3.75 km long and was established in 1909. It's a popular place for locals and tourists to walk, enjoy the view of the Caspian Sea, and visit nearby attractions.",
       hours: "Open 24/7",
       facilities: ["Cafes", "Benches", "Bike Rentals", "Children's Play Areas", "Fountains"],
@@ -111,7 +111,7 @@ const Places = () => {
     {
       name: "Zabitler Park",
       location: "Baku City Center",
-      image: "https://images.unsplash.com/photo-1522614595175-5afa2572f07a",
+      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
       description: "Zabitler Park, also known as Officers Park, is a beautiful green space in downtown Baku. It features well-maintained gardens, fountains, and is surrounded by historical buildings. The park is an ideal spot for a leisurely stroll or a quick break from city exploration.",
       hours: "Open 24/7",
       facilities: ["Benches", "Fountains", "Walking Paths", "Historical Monuments"],
@@ -124,7 +124,7 @@ const Places = () => {
     {
       name: "Heydar Aliyev Park",
       location: "Nasimi district",
-      image: "https://images.unsplash.com/photo-1464897873711-4738b4500497",
+      image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
       description: "Named after Azerbaijan's former president, this large park features beautifully landscaped gardens, fountains, and a monument to Heydar Aliyev. It's a popular spot for family gatherings and community events.",
       hours: "7:00 AM - 11:00 PM",
       facilities: ["Children's Playground", "Fountains", "Walking Paths", "Monuments", "Seating Areas"],
@@ -137,7 +137,7 @@ const Places = () => {
     {
       name: "Dagustu (Highland) Park",
       location: "Uphill from Parliament Avenue",
-      image: "https://images.unsplash.com/photo-1526604648377-1433c7c1f5b7",
+      image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",
       description: "Located on a hill overlooking the city, Highland Park offers one of the best panoramic views of Baku. The park features the Alley of Martyrs, a memorial dedicated to those killed during the Black January events and the Nagorno-Karabakh War.",
       hours: "Open 24/7",
       facilities: ["Viewpoints", "Memorials", "Walking Paths", "Benches"],
