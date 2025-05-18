@@ -5,6 +5,7 @@ import BottomNav from '@/components/Navigation/BottomNav';
 import { Cloud, CloudSun, CloudSunRain, Sun } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useQuery } from '@tanstack/react-query';
+import WeatherPodcast from '@/components/WeatherPodcast';
 
 interface WeatherData {
   current: {
@@ -66,6 +67,15 @@ const Weather = () => {
     refetchInterval: 1800000, // Refetch every 30 minutes
   });
 
+  // Mock data for when the API is unavailable
+  const mockWeatherData = {
+    currentTemp: 24,
+    condition: "Partly cloudy",
+    feelsLike: 25,
+    humidity: 45,
+    windSpeed: 8
+  };
+
   if (isLoading) {
     return (
       <div className="pb-16">
@@ -86,8 +96,10 @@ const Weather = () => {
       <div className="pb-16">
         <Header title="Weather Forecast" subtitle="Weather in Baku" />
         <div className="p-4">
-          <div className="bg-red-100 p-4 rounded-xl text-red-800">
-            <p>Unable to load weather data at the moment. Please try again later.</p>
+          <WeatherPodcast {...mockWeatherData} />
+          
+          <div className="mt-4 bg-red-100 p-4 rounded-xl text-red-800">
+            <p>Unable to load weather data at the moment. Displaying estimated values.</p>
           </div>
         </div>
         <BottomNav activeTab="weather" />
@@ -101,83 +113,93 @@ const Weather = () => {
       
       {data && (
         <div className="p-4">
-          <Card className="mb-4 bg-gradient-to-br from-baku-light to-white">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h2 className="text-2xl font-bold">Current Weather</h2>
-                  <p className="text-4xl font-bold mt-2">{data.current.temp_c}°C</p>
-                  <p className="text-gray-600">{data.current.condition.text}</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <span className="text-gray-500">Feels like:</span>
-                      <span className="ml-2 font-medium">{data.current.feelslike_c}°C</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-500">Wind:</span>
-                      <span className="ml-2 font-medium">{data.current.wind_kph} km/h</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-500">Humidity:</span>
-                      <span className="ml-2 font-medium">{data.current.humidity}%</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center">
-                  <img 
-                    src={`https:${data.current.condition.icon}`} 
-                    alt={data.current.condition.text}
-                    width={80}
-                    height={80}
-                    className="w-20 h-20"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <h3 className="text-xl font-bold mb-3">5-Day Forecast</h3>
-          <div className="grid grid-cols-1 gap-3">
-            {data.forecast.forecastday.map((day, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="mr-3">
-                        <img 
-                          src={`https:${day.day.condition.icon}`}
-                          alt={day.day.condition.text}
-                          width={40}
-                          height={40}
-                          className="w-10 h-10"
-                        />
+          <WeatherPodcast 
+            currentTemp={data.current.temp_c} 
+            condition={data.current.condition.text}
+            feelsLike={data.current.feelslike_c}
+            humidity={data.current.humidity}
+            windSpeed={Math.round(data.current.wind_kph)}
+          />
+          
+          <div className="mt-6">
+            <Card className="mb-4 bg-gradient-to-br from-baku-light to-white">
+              <CardContent className="p-6">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">Current Weather</h2>
+                    <p className="text-4xl font-bold mt-2">{data.current.temp_c}°C</p>
+                    <p className="text-gray-600">{data.current.condition.text}</p>
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-gray-500">Feels like:</span>
+                        <span className="ml-2 font-medium">{data.current.feelslike_c}°C</span>
                       </div>
                       <div>
-                        <p className="font-medium">{formatDate(day.date)}</p>
-                        <p className="text-gray-600 text-sm">{day.day.condition.text}</p>
+                        <span className="text-gray-500">Wind:</span>
+                        <span className="ml-2 font-medium">{data.current.wind_kph} km/h</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">Humidity:</span>
+                        <span className="ml-2 font-medium">{data.current.humidity}%</span>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-bold">{day.day.avgtemp_c}°C</p>
-                      <p className="text-xs text-gray-500">
-                        {day.day.mintemp_c}° / {day.day.maxtemp_c}°
-                      </p>
-                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <div className="flex items-center justify-center">
+                    <img 
+                      src={`https:${data.current.condition.icon}`} 
+                      alt={data.current.condition.text}
+                      width={80}
+                      height={80}
+                      className="w-20 h-20"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-          <div className="mt-6 p-4 bg-baku-light rounded-xl">
-            <h3 className="font-medium mb-2">Clothing Suggestions</h3>
-            <p className="text-sm text-gray-700">
-              {data.current.temp_c > 25 
-                ? "It's hot in Baku today! Wear light clothing, a hat, and don't forget sunscreen."
-                : data.current.temp_c > 15
-                ? "The temperature is pleasant. A light jacket or sweater might be useful for the evening."
-                : "It's cool in Baku today. Bring a jacket and dress in layers."}
-            </p>
+            <h3 className="text-xl font-bold mb-3">5-Day Forecast</h3>
+            <div className="grid grid-cols-1 gap-3">
+              {data.forecast.forecastday.map((day, index) => (
+                <Card key={index} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="mr-3">
+                          <img 
+                            src={`https:${day.day.condition.icon}`}
+                            alt={day.day.condition.text}
+                            width={40}
+                            height={40}
+                            className="w-10 h-10"
+                          />
+                        </div>
+                        <div>
+                          <p className="font-medium">{formatDate(day.date)}</p>
+                          <p className="text-gray-600 text-sm">{day.day.condition.text}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold">{day.day.avgtemp_c}°C</p>
+                        <p className="text-xs text-gray-500">
+                          {day.day.mintemp_c}° / {day.day.maxtemp_c}°
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-6 p-4 bg-baku-light rounded-xl">
+              <h3 className="font-medium mb-2">Clothing Suggestions</h3>
+              <p className="text-sm text-gray-700">
+                {data.current.temp_c > 25 
+                  ? "It's hot in Baku today! Wear light clothing, a hat, and don't forget sunscreen."
+                  : data.current.temp_c > 15
+                  ? "The temperature is pleasant. A light jacket or sweater might be useful for the evening."
+                  : "It's cool in Baku today. Bring a jacket and dress in layers."}
+              </p>
+            </div>
           </div>
         </div>
       )}

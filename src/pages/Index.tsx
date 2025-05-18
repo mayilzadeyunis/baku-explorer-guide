@@ -4,11 +4,9 @@ import BottomNav from '@/components/Navigation/BottomNav';
 import Hero from '@/components/Hero';
 import FeatureCard from '@/components/FeatureCard';
 import { Map, Landmark, Building, Sun, Currency } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import LiveDateTime from '@/components/LiveDateTime';
 
 const Index = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="pb-16">
       <Hero 
@@ -54,6 +52,10 @@ const Index = () => {
             color="muted"
           />
         </div>
+      </section>
+
+      <section className="p-4 mt-4">
+        <LiveDateTime />
       </section>
 
       <section className="p-4 mt-4">
