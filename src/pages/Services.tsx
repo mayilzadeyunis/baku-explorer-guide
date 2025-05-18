@@ -44,8 +44,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, address, 
             Working hours: {hours}
           </div>
         )}
-        {address && (
-          <Button variant="outline" size="sm" className="mt-3 w-full">
+        {/* Always show Get Directions button for emergency services, or if there's an address */}
+        {(emergency || address) && (
+          <Button variant="outline" size="sm" className="mt-3 w-full bg-gray-50 hover:bg-gray-100">
             <Navigation size={14} className="mr-1" />
             Get Directions
           </Button>
